@@ -8,6 +8,7 @@ let choseNumber = [];
 let result = [];
 let specialNumber = 0;
 
+//displayMessage
 const displayMessage = function (message) {
   document.querySelector(".message").textContent = message;
 };
@@ -18,7 +19,7 @@ const randomNumber = function () {
   return temp;
 };
 
-//pick 7 numbers
+//pick 6 numbers and one bonus number
 const openWinningNumber = function () {
   let temp = "";
   for (let count = 7; count > 0; count--) {
@@ -77,6 +78,7 @@ const checkRepeating = function (arr, num) {
   }
 };
 
+// Check bonus number
 const checkSpecialNumber = function (arr, num) {
   for (let i = 0; i < arr.length; i++) {
     if (choseNumber[i] == num) {
@@ -87,6 +89,7 @@ const checkSpecialNumber = function (arr, num) {
   return false;
 };
 
+//Check numbers
 const checkNumber = function (myNumber, drawNumber, specialNum) {
   const combineNumber = myNumber.concat(drawNumber);
   // check repeating
@@ -142,9 +145,9 @@ const checkNumber = function (myNumber, drawNumber, specialNum) {
   }
 };
 
+// lucky dip
 document.querySelector(".auto").addEventListener("click", function () {
   autoChoose(choseNumber);
-  // document.querySelector(".hidden").value = 0;
   document.querySelector(".choseNumber").textContent = choseNumber;
   document.querySelector("body").style.backgroundColor = "#60b347";
   document.querySelector(".number").textContent = "?";
@@ -152,6 +155,7 @@ document.querySelector(".auto").addEventListener("click", function () {
   h1Element.innerText = "Ready!??";
 });
 
+//Enter numbers
 document.querySelector(".check").addEventListener("click", function () {
   const guess = Number(document.querySelector(".guess").value);
   console.log(guess, typeof guess);
@@ -187,17 +191,11 @@ document.querySelector(".check").addEventListener("click", function () {
     document.querySelector(".choseNumber").textContent = choseNumber;
     numberCount--;
   }
-
-  // if (checkReady) {
-  //   document.querySelector("body").style.backgroundColor = "#60b347";
-  //   h1Element.innerText = "Ready!??";
-  // }
 });
 
-const checkReady = function () {
-  return numberCount === 0 && choseNumber.length === 6;
-};
-
+///////////////////////////////////////////
+/*  MODAL  */
+///////////////////////////////////////////
 document.querySelector(".open").addEventListener("click", function () {
   if (numberCount != 0) {
     displayMessage("⛔️ You must pick 6 numbers!");
@@ -231,6 +229,7 @@ document.querySelector(".again").addEventListener("click", function () {
   document.querySelector(".guess").value = "";
   result = [];
   choseNumber = [];
+  numberCount = 6;
 
   openBtn.style.backgroundColor = "#eee";
   openBtn.style.color = "#222";
@@ -239,4 +238,33 @@ document.querySelector(".again").addEventListener("click", function () {
 document.querySelector(".result").addEventListener("click", function () {
   const message = checkNumber(choseNumber, result, specialNumber);
   displayMessage(message);
+});
+
+///////////////////////////////////////////
+/*  MODAL  */
+///////////////////////////////////////////
+const modal = document.querySelector(".modal");
+const overlay = document.querySelector(".overlay");
+const btnCloseModal = document.querySelector(".close-modal");
+const btnsOpenModal = document.querySelectorAll(".show-modal");
+
+const openModal = function () {
+  modal.classList.remove("hidden");
+  overlay.classList.remove("hidden");
+};
+
+const closeModal = function () {
+  modal.classList.add("hidden");
+  overlay.classList.add("hidden");
+};
+
+btnsOpenModal[0].addEventListener("click", openModal);
+
+btnCloseModal.addEventListener("click", closeModal);
+overlay.addEventListener("click", closeModal);
+
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+    closeModal();
+  }
 });

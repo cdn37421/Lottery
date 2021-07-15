@@ -11,15 +11,22 @@
     <header>
       <h1 id="title">My lottery!</h1>
       <p class="between">(Between 1 and 49, choose 6 numbers)</p>
+      <button class="show-modal btn">Rule!</button>
       <button class="btn again">Again!</button>
       <button class="btn open" id="openButton">open!</button>
-
       <div class="number">?</div>
     </header>
+
+    <div class="modal hidden">
+      <button class="close-modal">&times;</button>
+      <h1>Pick six numbers, press Result! Have fun!</h1>
+    </div>
+    <div class="overlay hidden"></div>
+
     <main>
       <section class="left">
         <input type="number" class="guess" />
-        <button class="btn check hidden">Enter!</button>
+        <button class="btn check">Enter!</button>
         <button class="btn auto">Auto!</button>
         <button class="btn result">Result!</button>
       </section>
