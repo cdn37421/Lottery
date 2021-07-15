@@ -137,9 +137,10 @@ h1 {
   margin-bottom: 2rem;
 }
 
-/* .label-highscore{
-  margin-bottom: 2rem;
-} */
 .label-number{
   margin-bottom: 2rem;
+}
+
+.disappear{
+  opacity: 0;
 }

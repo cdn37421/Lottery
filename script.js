@@ -1,5 +1,6 @@
 "use strict";
 const h1Element = document.getElementById("title");
+const openBtn = document.getElementById("openButton");
 
 let numberCount = 6;
 let choseNumber = [];
@@ -44,8 +45,10 @@ const autoChoose = function (arr) {
       if (arr[i] == temp) {
         arr.splice(i, 1);
         count++;
+        numberCount++;
       }
     }
+    numberCount--;
     arr.push(temp);
   }
   return arr;
@@ -176,6 +179,7 @@ document.querySelector(".check").addEventListener("click", function () {
     return;
   }
 
+  // Enter number
   if (guess && numberCount > 0 && !checkRepeating(choseNumber, guess)) {
     document.querySelector(".message").textContent =
       "👉 Your enter number: " + guess;
@@ -195,9 +199,18 @@ const checkReady = function () {
 };
 
 document.querySelector(".open").addEventListener("click", function () {
-  // if (numberCount != 0) {
-  //   displayMessage("⛔️ You must pick 6 numbers!");
-  // }
+  if (numberCount != 0) {
+    displayMessage("⛔️ You must pick 6 numbers!");
+    return;
+  }
+
+  if (result.length === 6) {
+    return;
+  }
+  // need to fix: button doesn't disappear()
+  openBtn.style.backgroundColor = "#60b347";
+  openBtn.style.color = "#60b347";
+
   openWinningNumber();
   renderNumber(result);
   console.log(result);
@@ -211,13 +224,16 @@ document.querySelector(".again").addEventListener("click", function () {
   h1Element.innerText = "My lottery!";
   document.querySelector(".choseNumber").textContent = "?";
   document.querySelector(".resultNumber").textContent = "?";
-  choseNumber = [];
-  result = [];
   document.querySelector(".number").textContent = "?";
-  document.querySelector(".guess").value = "";
-
   document.querySelector("body").style.backgroundColor = "#222";
   document.querySelector(".number").style.width = "15rem";
+
+  document.querySelector(".guess").value = "";
+  result = [];
+  choseNumber = [];
+
+  openBtn.style.backgroundColor = "#eee";
+  openBtn.style.color = "#222";
 });
 
 document.querySelector(".result").addEventListener("click", function () {
